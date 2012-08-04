@@ -1,7 +1,8 @@
 A set of classes for defining and coloring graphs written in scala.
 
 Directories:
-* /
-  + src/                    -- Scala sources
-    - net/naegling/graph    -- the graph-related classes
-  + lib/                    -- Third-party libraries required by this project
+
+- /
+    + `src/` -- _Scala sources_
+        * `net/naegling/graph` -- _The graph-related classes_
+    + `lib/` -- _Third-party libraries required by this project_
