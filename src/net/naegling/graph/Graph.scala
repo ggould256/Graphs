@@ -47,8 +47,8 @@ class InvalidNodeException (
 trait GraphLike[Node, This <: GraphLike[Node,This]] {
   type Edge = (Node, Node)
   
-  val nodes : Set[Node]
-  val edges : Set[Edge]
+  def nodes : Set[Node]
+  def edges : Set[Edge]
 
   /** subclasses need to define a way for this trait to create a new "This" */
   def _factory(ns : Set[Node], es : Set[Edge]) : This
