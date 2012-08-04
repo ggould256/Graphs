@@ -61,20 +61,32 @@ trait GraphLike[Node, This <: GraphLike[Node,This]] {
 
   /** returns a copy of this graph also containing node n; if n is already
    *  present then this graph is returned unchanged */
-  def add(n : Node) : This = {
-    if (nodes(n)) throw new InvalidNodeException(n)
-    _factory(nodes + n, edges)
-  }
-  
+  def maybeAdd(n : Node) : This = _factory(nodes + n, edges)
+
   /** returns a copy of this graph also containing edge e; if e is already
    *  present then this graph is returned unchanged. It is an error if the
    *  ends of the given edge are not in the graph
+   */  
+  def maybeAdd(e : Edge) : This = {
+    if (!nodes(e._2)) throw new InvalidEdgeException(e)
+    if (!nodes(e._1)) throw new InvalidEdgeException(e)
+    _factory(nodes, edges + e)
+  }
+  
+  /** returns a copy of this graph also containing node n; it is an error if
+   *  if n is already present */
+  def add(n : Node) : This = {
+    if (nodes(n)) throw new InvalidNodeException(n)
+    maybeAdd(n)
+  }
+  
+  /** returns a copy of this graph also containing edge e; it is an error
+   *  if e is already present then this graph or if the ends of the given 
+   *  edge are not in the graph
    */
   def add(e : Edge) : This = {
-    if (!nodes(e._1)) throw new InvalidEdgeException(e)
-    if (!nodes(e._2)) throw new InvalidEdgeException(e)
     if (edges(e)) throw new InvalidEdgeException(e)
-    _factory(nodes, edges + e)
+    maybeAdd(e)
   }
 
   /** returns a copy of this graph lacking node n; if n is already absent 

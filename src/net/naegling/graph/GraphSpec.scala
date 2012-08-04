@@ -70,6 +70,7 @@ class GraphSpec extends FlatSpec with ShouldMatchers {
     withNegOne neighborsOf -1 should be ('empty)
     withNegOne edgesInto -1 should be ('empty)
     evaluating {rg add (rg.arbitraryNode)} should produce [InvalidNodeException]
+    rg maybeAdd (rg.arbitraryNode) should be (rg)
   }
 
   "g addEdge e" should "return a new Graph with edge e added" in {
@@ -80,6 +81,8 @@ class GraphSpec extends FlatSpec with ShouldMatchers {
     withNegOne edgesInto -1 should not be ('empty)
     evaluating {withNegOne add (anchor, -1)} should produce [InvalidEdgeException]
     evaluating {withNegOne add (anchor, -2)} should produce [InvalidEdgeException]
+    withNegOne maybeAdd (anchor, -1) should be (withNegOne)
+    evaluating {withNegOne maybeAdd (anchor, -2)} should produce [InvalidEdgeException]
   }
 
   "g rename f" should "return a new Graph with nodes remapped by f" in {
