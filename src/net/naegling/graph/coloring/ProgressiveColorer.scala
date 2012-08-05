@@ -6,7 +6,7 @@ package net.naegling.graph
  * strictly more work) but much, much better average case (because low-color
  * solutions are much faster than higher color ones)
  */
-object ProgressiveGraphColorer extends GraphColorer {
+object ProgressiveColorer extends GraphColorer {
   
   def _colorInternal[Node](
     graph : UndirectedGraph[Node],
