@@ -12,13 +12,11 @@ object BruteForceColorer extends GraphColorer {
    * Performs a coloring of the given graph, constrained by the given color
    * bound and operating on the given order if any
    */
-  def color[Node](
+  def _colorInternal[Node](
     graph : UndirectedGraph[Node],
-    _maxColors : Int = -1,  //< defaults to g.nodes.size
-    _nodeOrder : Seq[Node] = null //< defaults to g.nodes.toSeq
+    maxColors : Int,
+    nodeOrder : Seq[Node]
   ) : Option[Map[Node, Int]] = {
-    val maxColors = if (_maxColors == -1) graph.nodes.size else _maxColors
-    val nodeOrder = if (_nodeOrder == null) graph.nodes.toSeq else _nodeOrder
     val baseHypo = new Hypothesis(Map(), nodeOrder, graph, 0)
     val processingQueue : Queue[Hypothesis[Node]] = Queue(baseHypo)
     var done = false

@@ -34,10 +34,22 @@ abstract class GraphColorer {
     graph : UndirectedGraph[Node],
     _maxColors : Int = -1,  //< defaults to g.nodes.size
     _nodeOrder : Seq[Node] = null //< defaults to g.nodes.toSeq
+  ) : Option[Map[Node, Int]] = {
+    val maxColors = if (_maxColors == -1) graph.nodes.size else _maxColors
+    val nodeOrder = if (_nodeOrder == null) graph.nodes.toSeq else _nodeOrder
+    require (nodeOrder.toSet == graph.nodes)
+    _colorInternal(graph, maxColors, nodeOrder)
+  }
+
+  /** The core function bit that a colorer should override */
+  def _colorInternal[Node](
+    graph : UndirectedGraph[Node],
+    maxColors : Int,  //< defaults to g.nodes.size
+    nodeOrder : Seq[Node] //< defaults to g.nodes.toSeq
   ) : Option[Map[Node, Int]]
   
   /** An internal class that represents a possible partial coloring of the 
-   * given graph */
+   * given graph; provided as a convenience to colorer implementors. */
   class Hypothesis[Node] (
     val colors : Map[Node, Int],
     val remainingNodes : Seq[Node],
@@ -55,7 +67,8 @@ abstract class GraphColorer {
   
   /**
    * Given an hypothesis, obtain all the consistent hypotheses for the
-   * coloring of the next node in the sequence
+   * coloring of the next node in the sequence; provided as a convenience 
+   * to colorer implementors.
    */
   def extendHypothesis[Node](
     h : Hypothesis[Node],
