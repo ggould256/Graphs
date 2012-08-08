@@ -46,8 +46,11 @@ class InvalidNodeException (
  */
 trait GraphLike[Node, This <: GraphLike[Node,This]] {
   type Edge = (Node, Node)
-  
+
+  /** The nodes of this graph */
   def nodes : Set[Node]
+
+  /** The edges of this graph */
   def edges : Set[Edge]
 
   /** subclasses need to define a way for this trait to create a new "This" */
@@ -267,6 +270,10 @@ class UndirectedGraph[Node](
   val nodes : Set[Node] = Set[Node](),
   _edges : Set[(Node, Node)] = Set[(Node, Node)]()
 ) extends GraphLike[Node, UndirectedGraph[Node]] {
+
+  // on construction, add a reverse edge for every edge requested (that is, if
+  // the user asked for edge (A,B) then also add (B,A) to give undirected 
+  // behaviour.
   val edges = _edges | (_edges map {_.swap})
   edges foreach {e => 
     if (!nodes(e._1)) throw new InvalidEdgeException(e)
