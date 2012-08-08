@@ -1,4 +1,4 @@
-package net.naegling.graph
+package net.naegling.graph.coloring
 
 import net.naegling.graph._
 
