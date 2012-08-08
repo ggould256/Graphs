@@ -1,5 +1,4 @@
 bin
 .cache
-project/project
-target
-project/target
+project/
+target/
