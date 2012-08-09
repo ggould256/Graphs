@@ -1,5 +1,6 @@
-package net.naegling.graph
+package net.naegling.graph.coloring
 
+import net.naegling.graph.UndirectedGraph
 import scala.collection.mutable.Queue
 
 /**

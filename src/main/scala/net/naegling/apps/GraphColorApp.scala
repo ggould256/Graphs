@@ -1,6 +1,8 @@
 package net.naegling.apps
 
-import net.naegling.graph._
+import net.naegling.graph.DirectedGraph
+import net.naegling.graph.UndirectedGraph
+import net.naegling.graph.coloring._
 
 /**
  * A command-line application to color graphs; useful for manual testing of

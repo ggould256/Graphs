@@ -1,4 +1,6 @@
-package net.naegling.graph
+package net.naegling.graph.coloring
+
+import net.naegling.graph.UndirectedGraph
 
 /**
  * A superclass for graph coloring algorithms.  Subclasses must implement

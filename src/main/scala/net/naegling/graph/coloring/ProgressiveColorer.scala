@@ -1,4 +1,6 @@
-package net.naegling.graph
+package net.naegling.graph.coloring
+
+import net.naegling.graph.UndirectedGraph
 
 /**
  * A small improvement on the brute force colorer: Try coloring with smaller
