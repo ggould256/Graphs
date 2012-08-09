@@ -2,9 +2,9 @@ import com.typesafe.startscript.StartScriptPlugin
 
 seq(StartScriptPlugin.startScriptForClassesSettings: _*)
 
-name := "hello"
+name := "graphs"
 
-version := "1.0"
+version := "0.1"
 
 scalaVersion := "2.9.2"
 
