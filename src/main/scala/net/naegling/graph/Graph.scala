@@ -29,14 +29,15 @@ class InvalidNodeException (
 
 /**
  * A trait defining the methods in common between directed and undirected
- * graphs.  A class extending this trait will need at minimum to define a
- * _factory method to allow the functional updaters to recreate the target
- * class and a canEqual method to avoid equality leaking across subclass
- * boundaries.  Overriding hashCode is helpful but not required.
+ * graphs.
  * 
- * The default behaviour is a straightforward undirected graph via adjacency
- * set; subclasses requiring different behaviour or implementation will need
- * to override one or more other methods.
+ * A class extending this trait will need at minimum to define a _factory 
+ * method to allow the functional updaters to recreate the target class,
+ * nodes and edges accessors, and a canEqual method to avoid equality leaking
+ * across subclass boundaries.  Overriding hashCode is helpful but not
+ * required.  The default behaviour is a straightforward undirected graph via
+ * adjacency set; subclasses requiring different behaviour or implementation
+ * will need to override one or more other methods as well.
  * 
  * The somewhat cryptic type signature (for a given GraphLike type T, defines 
  * the type parameter "This" bounded above by by T) is to ensure that the
@@ -54,7 +55,7 @@ trait GraphLike[Node, This <: GraphLike[Node,This]] {
   def edges : Set[Edge]
 
   /** subclasses need to define a way for this trait to create a new "This" */
-  def _factory(ns : Set[Node], es : Set[Edge]) : This
+  protected def _factory(ns : Set[Node], es : Set[Edge]) : This
   
   /** true iff n is a node in this graph */
   def contains(n : Node) : Boolean = nodes(n)
