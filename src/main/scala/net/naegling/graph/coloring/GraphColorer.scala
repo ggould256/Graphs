@@ -90,3 +90,11 @@ abstract class GraphColorer {
     (existingColorHypos toSet) | newColorHypo
   }
 }
+
+object GraphColorer {
+  /** produce graphviz color metadata */
+  def colorMetadataFunction(coloring : Map[String,Int], node : String) : String = {
+    val colorList = List("blue", "red", "green", "black", "magenta", "cyan", "yellow", "purple", "orange")
+    "[ color=" + colorList(coloring(node)) + "]"
+  }
+}

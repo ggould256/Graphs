@@ -32,8 +32,12 @@ object GraphColorApp {
     System.out.println (
       coloring match {
         case Some(c) =>
-          if (args contains "-V") undirGraph.show({colorMetadataFunction(c, _)})
-          undirGraph.toDot({colorMetadataFunction(c, _)})
+          if (args contains "-V") undirGraph.show(
+              {GraphColorer.colorMetadataFunction(c, _)}
+            )
+          undirGraph.toDot(
+              {GraphColorer.colorMetadataFunction(c, _)}
+            )
         case None =>
           "Coloring failed"
         }
@@ -66,10 +70,4 @@ object GraphColorApp {
       case Right((l,false,r)) => 
         g maybeAdd l maybeAdd r maybeAdd (l,r)
     }
-
-  /** produce graphviz color metadata */
-  def colorMetadataFunction(coloring : Map[String,Int], node : String) : String = {
-    val colorList = List("blue", "red", "green", "black", "magenta", "cyan", "yellow", "purple", "orange")
-    "[ color=" + colorList(coloring(node)) + "]"
-  }
 }
