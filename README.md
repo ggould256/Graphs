@@ -18,11 +18,6 @@ A set of classes for defining and coloring graphs written in scala.
     + `project/`
         * `build.sbt` -- _sbt metaconfiguration (just adds the start script plugin_
         * `build.properties` -- _sbt metaconfiguration to specify the sbt version_
-    + `lib/` -- _Third-party libraries required by this project_
-
-Note that we are using unmanaged dependencies in the `lib` directory rather than pulling
-from sbt.  This is to simplify setup for eclipse users, as eclipse sbt support is still
-rather fiddly to get right.
 
 ## Getting Started
 
@@ -36,3 +31,19 @@ To build the documents:
 To test that the classes are working properly:
     sbt test
 
+## Integrating with Eclipse
+
+sbt uses a library-caching mechanism called "ivy" to manage its libraries; by default
+eclipse knows nothing of ivy.  Therefore you must install an Ivy plugin and cause sbt
+to deliver an ivy dependencies file pointing to local copies of the relevant libraries.
+To do this:
+
++ Install IvyDE into Eclipse.  This is done via:
+    - Help >> Install new Software...
+    - add the site `http://www.apache.org/dist/ant/ivyde/updatesite`
+    - select all of the packages
++ Cause a local delivery.  This is done by running `sbt deliver-local`
++ Tell the package to reload the settings
+    - Find the reference to the ivy-0.1.xml file in your project library references
+    - right-click it
+    - select "Reload Settings"
