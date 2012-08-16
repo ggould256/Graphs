@@ -63,6 +63,14 @@ abstract class GraphColorer {
       graph,
       scala.math.max(numColors, color + 1)
     )
+
+    /** For branch-and-bound algorithms, the lowest possible number of colors
+     * a coloring could color this graph with */
+    def colorsLowerBound = numColors // with cliques we could improve this
+
+    /** For branch-and-bound algorithms, a number of colors this graph is
+     * guaranteed to be colorable with */
+    def colorsUpperBound = numColors + remainingNodes.size
   }
   
   /**

@@ -14,7 +14,7 @@ object ProgressiveColorer extends GraphColorer {
     nodeOrder : Seq[Node]
   ) : Option[Map[Node, Int]] = {
     for (n <- 1 to maxColors) {
-      val result = BruteForceColorer.color(graph, n, nodeOrder)
+      val result = BreadthFirstColorer.color(graph, n, nodeOrder)
       if (result != None) return result
     }
     return None

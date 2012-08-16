@@ -6,7 +6,7 @@ import scala.collection.mutable.Queue
  * A graph coloring algorithm that does a breadth-first exploration of
  * possible colorings until it finds a correct coloring.
  */
-object BruteForceColorer extends GraphColorer {
+object BreadthFirstColorer extends GraphColorer {
   
   /**
    * Performs a coloring of the given graph, constrained by the given color
