@@ -20,8 +20,7 @@ object BreadthFirstColorer extends GraphColorer {
   ) : Option[Map[Node, Int]] = {
     val baseHypo = new Hypothesis(Map(), nodeOrder, graph, 0)
     val processingQueue : Queue[Hypothesis[Node]] = Queue(baseHypo)
-    var done = false
-    while(!done) {
+    while(true) {
       if (processingQueue.isEmpty) return None
       val hypo = processingQueue.dequeue()
       val nextHypos = (extendHypothesis(hypo, maxColors) toSeq)
