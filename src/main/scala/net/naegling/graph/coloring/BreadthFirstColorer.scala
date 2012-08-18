@@ -7,7 +7,7 @@ import scala.collection.mutable.Queue
  * A graph coloring algorithm that does a breadth-first exploration of
  * possible colorings until it finds a correct coloring.
  */
-object BruteForceColorer extends GraphColorer {
+object BreadthFirstColorer extends GraphColorer {
   
   /**
    * Performs a coloring of the given graph, constrained by the given color
@@ -20,8 +20,7 @@ object BruteForceColorer extends GraphColorer {
   ) : Option[Map[Node, Int]] = {
     val baseHypo = new Hypothesis(Map(), nodeOrder, graph, 0)
     val processingQueue : Queue[Hypothesis[Node]] = Queue(baseHypo)
-    var done = false
-    while(!done) {
+    while(true) {
       if (processingQueue.isEmpty) return None
       val hypo = processingQueue.dequeue()
       val nextHypos = (extendHypothesis(hypo, maxColors) toSeq)

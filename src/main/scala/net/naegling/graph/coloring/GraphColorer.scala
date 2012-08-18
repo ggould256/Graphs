@@ -28,6 +28,9 @@ import net.naegling.graph.UndirectedGraph
  */
 abstract class GraphColorer {
 
+  var statsCollection = false
+  var extendHypothesisCallCount = 0
+  
   /**
    * Performs a coloring of the given graph, constrained by the given color
    * bound and operating on the given order if any
@@ -41,6 +44,14 @@ abstract class GraphColorer {
     val nodeOrder = if (_nodeOrder == null) graph.nodes.toSeq else _nodeOrder
     require (nodeOrder.toSet == graph.nodes)
     _colorInternal(graph, maxColors, nodeOrder)
+  }
+
+  /** Turns on or off on statistics collection (off by default) */
+  def setStatsCollection(newVal : Boolean) { statsCollection = newVal }
+
+  /** Gets the number of calls to expandHypothesis */
+  def getExtendHypothesisStat = {
+    if (statsCollection) Some(extendHypothesisCallCount) else None
   }
 
   /** The core function bit that a colorer should override */
@@ -65,6 +76,14 @@ abstract class GraphColorer {
       graph,
       scala.math.max(numColors, color + 1)
     )
+
+    /** For branch-and-bound algorithms, the lowest possible number of colors
+     * a coloring could color this graph with */
+    def colorsLowerBound = numColors // with cliques we could improve this
+
+    /** For branch-and-bound algorithms, a number of colors this graph is
+     * guaranteed to be colorable with */
+    def colorsUpperBound = numColors + remainingNodes.size
   }
   
   /**
@@ -76,6 +95,7 @@ abstract class GraphColorer {
     h : Hypothesis[Node],
     maxColors : Int
   ) : Set[Hypothesis[Node]] = {
+    if (statsCollection) extendHypothesisCallCount += 1
     if (h.remainingNodes.isEmpty) return Set()
     val nextNode = h.remainingNodes.head
     val adjacentColors =

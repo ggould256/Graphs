@@ -11,7 +11,7 @@ import scala.util.Random
 @RunWith(classOf[JUnitRunner])
 class GraphColorerSpec extends FlatSpec with ShouldMatchers {
   val sz = 10
-  val colorers = List(BruteForceColorer, ProgressiveColorer)
+  val colorers = List(BreadthFirstColorer, ProgressiveColorer, BranchAndBoundColorer)
   val graphs = // a reproducible random set
     (( 0 until 10) map {x:Int => RandomGraph.undirected(sz, 2, false, new Random(x))}) ++
     ((10 until 20) map {x:Int => RandomGraph.undirected(sz, 2, true,  new Random(x))}) ++

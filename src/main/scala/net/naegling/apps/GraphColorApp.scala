@@ -27,7 +27,7 @@ object GraphColorApp {
     val contents = statements map parseStatement
     val dirGraph = contents.foldLeft(new DirectedGraph[String])(extend)
     val undirGraph = new UndirectedGraph(dirGraph.nodes, dirGraph.edges)
-    val coloring = ProgressiveColorer.color(undirGraph)
+    val coloring = BranchAndBoundColorer.color(undirGraph)
     
     System.out.println (
       coloring match {
